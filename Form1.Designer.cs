@@ -41,6 +41,7 @@ namespace GradilSolutions
             this.btnCancelar = new System.Windows.Forms.Button();
             this.generateGradil = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnSalvar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -125,10 +126,20 @@ namespace GradilSolutions
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
+            // btnSalvar
+            // 
+            resources.ApplyResources(this.btnSalvar, "btnSalvar");
+            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSalvar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.UseVisualStyleBackColor = false;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            // 
             // GradilSolutions
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.generateGradil);
             this.Controls.Add(this.btnCancelar);
@@ -162,6 +173,7 @@ namespace GradilSolutions
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button generateGradil;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button btnSalvar;
     }
 }
 

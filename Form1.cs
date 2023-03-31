@@ -12,6 +12,15 @@ namespace GradilSolutions
 {
     public partial class GradilSolutions : Form
     {
+        double comprimento;
+        double altura;
+        string cor;
+        int quantidade_telas;
+        int quantidade_postes;
+        int quantidade_fixadores;
+        int quantidade_parafusos;
+        double diferenca;
+
         public GradilSolutions()
         {
             InitializeComponent();
@@ -159,20 +168,89 @@ namespace GradilSolutions
     // Calcular o comprimento da cerca
     double comprimento = 2 * altura + 2 * largura;
 
-    // Gerar o código HTML para o gráfico
-    string html = "<html><head><script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script></head><body>";
-    html += "<canvas id=\"myChart\"></canvas>";
-    html += "<script>var ctx = document.getElementById('myChart').getContext('2d');";
-    html += "var myChart = new Chart(ctx, {type: 'bar',data: {labels: ['Comprimento'],datasets: [{label: 'Comprimento da cerca',data: [" + comprimento + "],backgroundColor: ['rgba(255, 99, 132, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],borderWidth: 1}]}});</script>";
-    html += "</body></html>";
+            // Gerar o código HTML para o gráfico
+            string html = @"
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gráfico da cerca</title>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
+</head>
+<body>
+	<canvas id='myChart'></canvas>
 
-    // Exibir o gráfico no WebBrowser
-    webBrowser.DocumentText = html;
-}
+	<script>
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['Telas', 'Postes', 'Fixadores', 'Parafusos', 'Cor da Tela', 'Diferença'],
+				datasets: [{
+					label: 'Quantidade',
+					data: [" + quantidade_telas + ", " + quantidade_postes + ", " + quantidade_fixadores + ", " + quantidade_parafusos + ", 1, '" + cor + "', " + diferenca + @"],
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'
+					],
+					borderColor: [
+						'rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+	</script>
+</body>
+</html>
+";
+
+            // Exibir o gráfico no WebBrowser
+            webBrowser1.DocumentText = html;
+
+        }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            // Cria uma instância do StreamWriter e abre um arquivo CSV para escrita
+            using (StreamWriter writer = new StreamWriter("resultados.csv"))
+            {
+                // Escreve o cabeçalho do arquivo CSV
+                writer.WriteLine("Produto,Quantidade");
+
+                // Escreve cada linha do DataGridView como uma linha no arquivo CSV
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    string produto = row.Cells["Produto"].Value.ToString();
+                    string quantidade = row.Cells["Quantidade"].Value.ToString();
+                    writer.WriteLine(produto + "," + quantidade);
+                }
+            }
+
+            // Exibe uma mensagem de sucesso para o usuário
+            MessageBox.Show("Os resultados foram salvos em resultados.csv.");
         }
     }
 }
