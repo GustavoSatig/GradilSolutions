@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace GradilSolutions
 {
     public partial class GradilSolutions : Form
     {
+
         double comprimento;
         double altura;
         string cor;
@@ -126,7 +122,7 @@ namespace GradilSolutions
         //altura da cerca
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-         
+
         }
         //cor da cerca
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,7 +132,7 @@ namespace GradilSolutions
         //Comprimento total da cerca em metros
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-         
+
         }
         //apenas uma label
         private void label1_Click(object sender, EventArgs e)
@@ -156,101 +152,54 @@ namespace GradilSolutions
 
         private void GradilSolutions_Load(object sender, EventArgs e)
         {
-  
+
         }
 
         private void generateGradil_Click(object sender, EventArgs e)
         {
-    // Obter as especificações da cerca do usuário
-    double altura = double.Parse(txtAltura.Text);
-    double largura = double.Parse(txtLargura.Text);
+            // Verificar se o usuário confirmou as opções antes de gerar o gráfico
+            if (quantidade_postes == 0 || comboBox1.SelectedItem == null || comboBox2.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, confirme as opções antes de gerar o gráfico.");
+                return;
+            }
 
-    // Calcular o comprimento da cerca
-    double comprimento = 2 * altura + 2 * largura;
+            // Criar o objeto ZedGraphControl
+            ZedGraphControl zedGraphControl = new ZedGraphControl();
+            zedGraphControl.Dock = DockStyle.Fill;
+            this.Controls.Add(zedGraphControl);
 
-            // Gerar o código HTML para o gráfico
-            string html = @"
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Gráfico da cerca</title>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js'></script>
-</head>
-<body>
-	<canvas id='myChart'></canvas>
+            // Criar o objeto GraphPane para o gráfico
+            GraphPane myPane = zedGraphControl.GraphPane;
 
-	<script>
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: ['Telas', 'Postes', 'Fixadores', 'Parafusos', 'Cor da Tela', 'Diferença'],
-				datasets: [{
-					label: 'Quantidade',
-					data: [" + quantidade_telas + ", " + quantidade_postes + ", " + quantidade_fixadores + ", " + quantidade_parafusos + ", 1, '" + cor + "', " + diferenca + @"],
-					backgroundColor: [
-						'rgba(255, 99, 132, 0.2)',
-						'rgba(54, 162, 235, 0.2)',
-						'rgba(255, 206, 86, 0.2)',
-						'rgba(75, 192, 192, 0.2)',
-						'rgba(153, 102, 255, 0.2)',
-						'rgba(255, 159, 64, 0.2)'
-					],
-					borderColor: [
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			}
-		});
-	</script>
-</body>
-</html>
-";
+            // Definir o título do gráfico
+            myPane.Title.Text = "Gradil Solutions";
 
-            // Exibir o gráfico no WebBrowser
-            webBrowser1.DocumentText = html;
+            // Definir o título do eixo X
+            myPane.XAxis.Title.Text = "Quantidade de Postes";
+
+            // Definir o título do eixo Y
+            myPane.YAxis.Title.Text = "Altura da Cerca (m)";
+
+            // Criar um objeto PointPairList para armazenar os valores dos postes e alturas
+            PointPairList pontos = new PointPairList();
+            for (int i = 1; i <= quantidade_postes; i++)
+            {
+                pontos.Add(i, altura);
+            }
+
+            // Definir o tipo de gráfico como Coluna
+            BarItem curve = myPane.AddBar("Quantidade de Postes", pontos, Color.FromName(cor));
+            curve.Bar.Fill = new Fill(Color.FromName(cor));
+
+            // Atualizar o gráfico
+            zedGraphControl.AxisChange();
+            zedGraphControl.Invalidate();
 
         }
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnSalvar_Click(object sender, EventArgs e)
-        {
-            // Cria uma instância do StreamWriter e abre um arquivo CSV para escrita
-            using (StreamWriter writer = new StreamWriter("resultados.csv"))
-            {
-                // Escreve o cabeçalho do arquivo CSV
-                writer.WriteLine("Produto,Quantidade");
-
-                // Escreve cada linha do DataGridView como uma linha no arquivo CSV
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    string produto = row.Cells["Produto"].Value.ToString();
-                    string quantidade = row.Cells["Quantidade"].Value.ToString();
-                    writer.WriteLine(produto + "," + quantidade);
-                }
-            }
-
-            // Exibe uma mensagem de sucesso para o usuário
-            MessageBox.Show("Os resultados foram salvos em resultados.csv.");
         }
     }
 }

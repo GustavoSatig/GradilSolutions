@@ -6,4 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ZedGraph" Version="5.1.7" />
+  </ItemGroup>
+
 </Project>
