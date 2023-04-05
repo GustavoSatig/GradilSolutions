@@ -41,6 +41,11 @@ namespace GradilSolutions
             this.btnCancelar = new System.Windows.Forms.Button();
             this.generateGradil = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnSeeHistory = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -102,6 +107,7 @@ namespace GradilSolutions
             this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // generateGradil
             // 
@@ -119,10 +125,45 @@ namespace GradilSolutions
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // btnSeeHistory
+            // 
+            resources.ApplyResources(this.btnSeeHistory, "btnSeeHistory");
+            this.btnSeeHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSeeHistory.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSeeHistory.Name = "btnSeeHistory";
+            this.btnSeeHistory.UseVisualStyleBackColor = false;
+            this.btnSeeHistory.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
             // GradilSolutions
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnSeeHistory);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.generateGradil);
             this.Controls.Add(this.btnCancelar);
@@ -155,6 +196,11 @@ namespace GradilSolutions
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button generateGradil;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnSeeHistory;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
         //private ZedGraph.ZedGraphControl zedGraphControl1;
     }
 }
