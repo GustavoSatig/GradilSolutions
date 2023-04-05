@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GradilSolutions
 {
@@ -8,7 +9,7 @@ namespace GradilSolutions
     {
 
         string cor;
-
+        double alturaSelecionada = 0;
         public GradilSolutions()
         {
             InitializeComponent();
@@ -106,20 +107,43 @@ namespace GradilSolutions
             dataGridView1.Rows.Add("Postes:", quantidade_postes);
             dataGridView1.Rows.Add("Fixadores:", quantidade_fixadores);
             dataGridView1.Rows.Add("Parafusos:", quantidade_parafusos);
-            dataGridView1.Rows.Add("Cor da Tela:", cor);
             dataGridView1.Rows.Add("Diferença:", diferenca);
+
+
+            string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Histórico");
+            string fileName = "dados" + DateTime.Now.ToString("yyyyMMdd-HH_mm_ss") + ".csv";
+            string filePath = Path.Combine(folderPath, fileName);
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                // Escreve os cabeçalhos das colunas
+                writer.WriteLine("Produto,Quantidade,Data");
+
+                // Escreve os dados no arquivo
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    writer.WriteLine($"{row.Cells[0].Value},{row.Cells[1].Value},{DateTime.Now}");
+                }
+            }
+
+
+
+
 
         }
         
         //altura da cerca
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (double.TryParse(comboBox1.SelectedItem?.ToString(), out double result))
+            {
+                alturaSelecionada = result;
+            }
         }
         //cor da cerca
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+           
         }
         //Comprimento total da cerca em metros
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -159,8 +183,8 @@ namespace GradilSolutions
                 return;
             }
 
-            // Obter a altura da cerca a partir da opção selecionada no comboBox1
-            double altura = double.TryParse(comboBox1.SelectedItem?.ToString(), out double result) ? result : 0;
+            // Obter a altura da cerca a partir da variável de classe "alturaSelecionada"
+            double altura = alturaSelecionada;
 
             switch (comboBox1.SelectedItem.ToString())
             {
@@ -179,42 +203,35 @@ namespace GradilSolutions
             }
 
             string cor = comboBox2.SelectedItem?.ToString();
-            Color corTaubas;
-            switch (cor)
+            Color corLinha = Color.Black;
+
+            switch (comboBox2.SelectedItem.ToString())
             {
                 case "Sem pintura":
-                    corTaubas = Color.Transparent;
+                    corLinha = Color.Black;
                     break;
                 case "Branca":
-                    corTaubas = Color.White;
+                    corLinha = Color.White;
                     break;
                 case "Preta":
-                    corTaubas = Color.Black;
+                    corLinha = Color.Black;
                     break;
                 case "Verde":
-                    corTaubas = Color.Green;
+                    corLinha = Color.Green;
                     break;
-                default:
-                    MessageBox.Show("Por favor, selecione uma cor válida.");
-                    return;
             }
 
-            Color corPostes = Color.Black;
 
-            // Calcular a altura dos postes e das tábuas da cerca
-            double alturaPostes = altura;
-            double alturaTábuas = altura;
+            double alturaPostes = altura; // altura dos postes = 10% da altura total selecionada
 
             // Calcular as dimensões da imagem
             int larguraDesenho = 670;
-            int alturaDesenho = 315;
+            int alturaDesenho = Convert.ToInt32(alturaPostes * 100);
 
             // Criar bitmap para desenhar
             Bitmap bmp = new Bitmap(larguraDesenho, alturaDesenho);
             Graphics g = Graphics.FromImage(bmp);
             {
-                g.Clear(Color.White);
-
                 //int x = larguraDesenho / 6700;
                 //int y = 10;
 
@@ -222,6 +239,7 @@ namespace GradilSolutions
                 int larguraPostes = 2;
                 int larguraTabuas = 100;
                 int deslocamentoInicial = 1;
+                Pen penLinha = new Pen(corLinha, larguraPostes);
 
                 for (int i = 0; i < quantidadePostes; i++)
                 {
@@ -229,14 +247,13 @@ namespace GradilSolutions
                     int x = Convert.ToInt32(Math.Round(deslocamentoInicial + (i + 0.01) * larguraDesenho / quantidadePostes));
 
                     // Desenhar linha vertical do poste
-                    g.DrawLine(new Pen(corPostes, larguraPostes), (int)x, 0, (int)x, alturaDesenho);
+                    g.DrawLine(penLinha, (int)x, 0, (int)x, alturaDesenho);
 
                     // Desenhar linhas horizontais representando as tábuas da cerca
-                    for (int j = 1; j <= 100; j++)
+                    for (int j = 1; j <= 50; j++)
                     {
-                        int y = j * alturaDesenho / 25;
-                        g.DrawLine(new Pen(corTaubas, larguraTabuas), (int)(x - larguraPostes / 2 - larguraTabuas), y, (int)(x + larguraPostes / 2 + larguraTabuas), y);
-
+                        int y = j * alturaDesenho / 15;
+                        g.DrawLine(penLinha, (int)(x - larguraPostes / 2 - larguraTabuas), y, (int)(x + larguraPostes / 2 + larguraTabuas), y);
                     }
                 }
 
@@ -252,5 +269,13 @@ namespace GradilSolutions
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Cria uma nova instância do formulário que deseja abrir
+            History form2 = new History();
+
+            // Exibe o novo formulário
+            form2.Show();
+        }
     }
 }

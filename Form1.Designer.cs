@@ -41,6 +41,7 @@ namespace GradilSolutions
             this.btnCancelar = new System.Windows.Forms.Button();
             this.generateGradil = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnSeeHistory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -119,10 +120,20 @@ namespace GradilSolutions
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // btnSeeHistory
+            // 
+            resources.ApplyResources(this.btnSeeHistory, "btnSeeHistory");
+            this.btnSeeHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSeeHistory.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSeeHistory.Name = "btnSeeHistory";
+            this.btnSeeHistory.UseVisualStyleBackColor = false;
+            this.btnSeeHistory.Click += new System.EventHandler(this.button1_Click);
+            // 
             // GradilSolutions
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSeeHistory);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.generateGradil);
             this.Controls.Add(this.btnCancelar);
@@ -155,6 +166,7 @@ namespace GradilSolutions
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button generateGradil;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnSeeHistory;
         //private ZedGraph.ZedGraphControl zedGraphControl1;
     }
 }
