@@ -83,18 +83,8 @@
   <data name="generateGradil.Text" xml:space="preserve">
     <value>Gerar Gradil</value>
   </data>
-  <data name="zedGraphControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 267</value>
-  </data>
-  <data name="zedGraphControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="zedGraphControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>673, 320</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="zedGraphControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>628, 302</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>699, 599</value>

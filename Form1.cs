@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ZedGraph;
 
 namespace GradilSolutions
 {
     public partial class GradilSolutions : Form
     {
 
-        double comprimento;
-        double altura;
         string cor;
-        int quantidade_telas;
-        int quantidade_postes;
-        int quantidade_fixadores;
-        int quantidade_parafusos;
-        double diferenca;
 
         public GradilSolutions()
         {
@@ -52,8 +44,9 @@ namespace GradilSolutions
         }
 
         //botao de confirmar que deve se conectar com o datagridview
-        private void button1_Click(object sender, EventArgs e)
+        private void btnConfirmar_Click(object sender, EventArgs e)
         {
+
             // Verificar se o usuário selecionou opções válidas
             if (string.IsNullOrEmpty(textBox1.Text) || comboBox1.SelectedItem == null || comboBox2.SelectedItem == null)
             {
@@ -86,9 +79,6 @@ namespace GradilSolutions
                     return;
             }
 
-            // Obter cor da cerca
-            string cor = comboBox2.SelectedItem.ToString();
-
             // Realizar os cálculos
             int quantidade_telas = (int)Math.Ceiling(comprimento / 2.5);
             int quantidade_postes = quantidade_telas * 2;
@@ -118,7 +108,9 @@ namespace GradilSolutions
             dataGridView1.Rows.Add("Parafusos:", quantidade_parafusos);
             dataGridView1.Rows.Add("Cor da Tela:", cor);
             dataGridView1.Rows.Add("Diferença:", diferenca);
+
         }
+        
         //altura da cerca
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -155,51 +147,110 @@ namespace GradilSolutions
 
         }
 
-        private void generateGradil_Click(object sender, EventArgs e)
+        private void generateGradil_Click_1(object sender, EventArgs e)
         {
-            // Verificar se o usuário confirmou as opções antes de gerar o gráfico
-            if (quantidade_postes == 0 || comboBox1.SelectedItem == null || comboBox2.SelectedItem == null)
+            // Chamar o método btnConfirmar_Click para calcular a quantidade de postes
+            btnConfirmar_Click(sender, e);
+
+            // Obter a quantidade de postes a partir do valor na primeira célula da coluna "Postes" no dataGridView1
+            if (!int.TryParse(dataGridView1.Rows[1].Cells[1].Value.ToString(), out int quantidadePostes))
             {
-                MessageBox.Show("Por favor, confirme as opções antes de gerar o gráfico.");
+                MessageBox.Show("Por favor, calcule a quantidade de postes antes de gerar a imagem.");
                 return;
             }
 
-            // Criar o objeto ZedGraphControl
-            ZedGraphControl zedGraphControl = new ZedGraphControl();
-            zedGraphControl.Dock = DockStyle.Fill;
-            this.Controls.Add(zedGraphControl);
+            // Obter a altura da cerca a partir da opção selecionada no comboBox1
+            double altura = double.TryParse(comboBox1.SelectedItem?.ToString(), out double result) ? result : 0;
 
-            // Criar o objeto GraphPane para o gráfico
-            GraphPane myPane = zedGraphControl.GraphPane;
-
-            // Definir o título do gráfico
-            myPane.Title.Text = "Gradil Solutions";
-
-            // Definir o título do eixo X
-            myPane.XAxis.Title.Text = "Quantidade de Postes";
-
-            // Definir o título do eixo Y
-            myPane.YAxis.Title.Text = "Altura da Cerca (m)";
-
-            // Criar um objeto PointPairList para armazenar os valores dos postes e alturas
-            PointPairList pontos = new PointPairList();
-            for (int i = 1; i <= quantidade_postes; i++)
+            switch (comboBox1.SelectedItem.ToString())
             {
-                pontos.Add(i, altura);
+                case "1,03":
+                    altura = 1.03;
+                    break;
+                case "1,53":
+                    altura = 1.53;
+                    break;
+                case "2,03":
+                    altura = 2.03;
+                    break;
+                default:
+                    MessageBox.Show("Por favor, selecione uma altura válida.");
+                    return;
             }
 
-            // Definir o tipo de gráfico como Coluna
-            BarItem curve = myPane.AddBar("Quantidade de Postes", pontos, Color.FromName(cor));
-            curve.Bar.Fill = new Fill(Color.FromName(cor));
+            string cor = comboBox2.SelectedItem?.ToString();
+            Color corTaubas;
+            switch (cor)
+            {
+                case "Sem pintura":
+                    corTaubas = Color.Transparent;
+                    break;
+                case "Branca":
+                    corTaubas = Color.White;
+                    break;
+                case "Preta":
+                    corTaubas = Color.Black;
+                    break;
+                case "Verde":
+                    corTaubas = Color.Green;
+                    break;
+                default:
+                    MessageBox.Show("Por favor, selecione uma cor válida.");
+                    return;
+            }
 
-            // Atualizar o gráfico
-            zedGraphControl.AxisChange();
-            zedGraphControl.Invalidate();
+            Color corPostes = Color.Black;
+
+            // Calcular a altura dos postes e das tábuas da cerca
+            double alturaPostes = altura;
+            double alturaTábuas = altura;
+
+            // Calcular as dimensões da imagem
+            int larguraDesenho = 670;
+            int alturaDesenho = 315;
+
+            // Criar bitmap para desenhar
+            Bitmap bmp = new Bitmap(larguraDesenho, alturaDesenho);
+            Graphics g = Graphics.FromImage(bmp);
+            {
+                g.Clear(Color.White);
+
+                //int x = larguraDesenho / 6700;
+                //int y = 10;
+
+                // Definir a largura dos postes e das tábuas da cerca
+                int larguraPostes = 2;
+                int larguraTabuas = 100;
+                int deslocamentoInicial = 1;
+
+                for (int i = 0; i < quantidadePostes; i++)
+                {
+                    // Calcular a posição x do poste
+                    int x = Convert.ToInt32(Math.Round(deslocamentoInicial + (i + 0.01) * larguraDesenho / quantidadePostes));
+
+                    // Desenhar linha vertical do poste
+                    g.DrawLine(new Pen(corPostes, larguraPostes), (int)x, 0, (int)x, alturaDesenho);
+
+                    // Desenhar linhas horizontais representando as tábuas da cerca
+                    for (int j = 1; j <= 100; j++)
+                    {
+                        int y = j * alturaDesenho / 25;
+                        g.DrawLine(new Pen(corTaubas, larguraTabuas), (int)(x - larguraPostes / 2 - larguraTabuas), y, (int)(x + larguraPostes / 2 + larguraTabuas), y);
+
+                    }
+                }
+
+            }
+
+            // Exibir a imagem no pictureBox
+            pictureBox1.Image = bmp;
 
         }
-        private void pictureBox2_Click(object sender, EventArgs e)
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
+
     }
 }
