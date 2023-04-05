@@ -29,128 +29,117 @@ namespace GradilSolutions
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GradilSolutions));
-            btnConfirmar = new System.Windows.Forms.Button();
-            comboBox1 = new System.Windows.Forms.ComboBox();
-            comboBox2 = new System.Windows.Forms.ComboBox();
-            textBox1 = new System.Windows.Forms.TextBox();
-            dataGridView1 = new System.Windows.Forms.DataGridView();
-            label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            btnCancelar = new System.Windows.Forms.Button();
-            generateGradil = new System.Windows.Forms.Button();
-            zedGraphControl1 = new ZedGraph.ZedGraphControl();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            SuspendLayout();
+            this.btnConfirmar = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.generateGradil = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
             // 
             // btnConfirmar
             // 
-            resources.ApplyResources(btnConfirmar, "btnConfirmar");
-            btnConfirmar.BackColor = System.Drawing.Color.FromArgb(192, 255, 192);
-            btnConfirmar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.UseVisualStyleBackColor = false;
-            btnConfirmar.Click += button1_Click;
+            resources.ApplyResources(this.btnConfirmar, "btnConfirmar");
+            this.btnConfirmar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnConfirmar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.UseVisualStyleBackColor = false;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
             // comboBox1
             // 
-            resources.ApplyResources(comboBox1, "comboBox1");
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Name = "comboBox1";
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Name = "comboBox1";
             // 
             // comboBox2
             // 
-            resources.ApplyResources(comboBox2, "comboBox2");
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Name = "comboBox2";
-            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
+            resources.ApplyResources(this.comboBox2, "comboBox2");
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Name = "comboBox2";
             // 
             // textBox1
             // 
-            resources.ApplyResources(textBox1, "textBox1");
-            textBox1.Name = "textBox1";
-            textBox1.TextChanged += textBox1_TextChanged;
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
             // 
             // dataGridView1
             // 
-            resources.ApplyResources(dataGridView1, "dataGridView1");
-            dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            resources.ApplyResources(this.dataGridView1, "dataGridView1");
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
             // 
             // label1
             // 
-            resources.ApplyResources(label1, "label1");
-            label1.Name = "label1";
-            label1.Click += label1_Click;
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // label2
             // 
-            resources.ApplyResources(label2, "label2");
-            label2.Name = "label2";
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // label3
             // 
-            resources.ApplyResources(label3, "label3");
-            label3.Name = "label3";
-            label3.Click += label3_Click;
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
             // 
             // btnCancelar
             // 
-            resources.ApplyResources(btnCancelar, "btnCancelar");
-            btnCancelar.BackColor = System.Drawing.Color.FromArgb(255, 192, 192);
-            btnCancelar.Name = "btnCancelar";
-            btnCancelar.UseVisualStyleBackColor = false;
+            resources.ApplyResources(this.btnCancelar, "btnCancelar");
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.UseVisualStyleBackColor = false;
             // 
             // generateGradil
             // 
-            resources.ApplyResources(generateGradil, "generateGradil");
-            generateGradil.BackColor = System.Drawing.Color.FromArgb(255, 255, 192);
-            generateGradil.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            generateGradil.Name = "generateGradil";
-            generateGradil.UseVisualStyleBackColor = false;
-            generateGradil.Click += generateGradil_Click;
+            resources.ApplyResources(this.generateGradil, "generateGradil");
+            this.generateGradil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.generateGradil.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.generateGradil.Name = "generateGradil";
+            this.generateGradil.UseVisualStyleBackColor = false;
+            this.generateGradil.Click += new System.EventHandler(this.generateGradil_Click_1);
             // 
-            // zedGraphControl1
+            // pictureBox1
             // 
-            resources.ApplyResources(zedGraphControl1, "zedGraphControl1");
-            zedGraphControl1.Name = "zedGraphControl1";
-            zedGraphControl1.ScrollGrace = 0D;
-            zedGraphControl1.ScrollMaxX = 0D;
-            zedGraphControl1.ScrollMaxY = 0D;
-            zedGraphControl1.ScrollMaxY2 = 0D;
-            zedGraphControl1.ScrollMinX = 0D;
-            zedGraphControl1.ScrollMinY = 0D;
-            zedGraphControl1.ScrollMinY2 = 0D;
-            zedGraphControl1.UseExtendedPrintDialog = true;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // GradilSolutions
             // 
             resources.ApplyResources(this, "$this");
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            Controls.Add(zedGraphControl1);
-            Controls.Add(generateGradil);
-            Controls.Add(btnCancelar);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(dataGridView1);
-            Controls.Add(textBox1);
-            Controls.Add(comboBox2);
-            Controls.Add(comboBox1);
-            Controls.Add(btnConfirmar);
-            Name = "GradilSolutions";
-            Load += GradilSolutions_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.generateGradil);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.btnConfirmar);
+            this.Name = "GradilSolutions";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
@@ -165,7 +154,8 @@ namespace GradilSolutions
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button generateGradil;
-        private ZedGraph.ZedGraphControl zedGraphControl1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        //private ZedGraph.ZedGraphControl zedGraphControl1;
     }
 }
 
