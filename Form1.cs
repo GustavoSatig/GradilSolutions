@@ -277,5 +277,18 @@ namespace GradilSolutions
             // Exibe o novo formulário
             form2.Show();
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Voce deseja sair da aplicação??", "Sair da Aplicação", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
     }
 }

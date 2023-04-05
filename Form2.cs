@@ -65,7 +65,7 @@ namespace GradilSolutions
 
         private void btnBack_Click(object sender, System.EventArgs e)
         {
-            // Feche o Form2
+            // Fechar o Form2
             if (MessageBox.Show("Voce deseja mesmo voltar a aplicação inicial??", "Voltar a Aplicação Inicial", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
             {
                 this.Close();
